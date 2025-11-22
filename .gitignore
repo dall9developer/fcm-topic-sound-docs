@@ -1,0 +1,12 @@
+# 배포 스크립트 제외
+*.bat
+
+# Git 폴더
+.git/
+
+# Windows 시스템 파일
+Thumbs.db
+desktop.ini
+
+# macOS 시스템 파일
+.DS_Store
