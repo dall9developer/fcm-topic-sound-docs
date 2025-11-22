@@ -1,0 +1,755 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* 헤더 */
+header {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* 섹션 공통 */
+section {
+    padding: 40px;
+    border-bottom: 1px solid #eee;
+}
+
+section h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 문제 상황 */
+.problem-box {
+    background: #fff5f5;
+    border-left: 5px solid #ff4444;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.phone-example {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.phone {
+    width: 250px;
+    border: 3px solid #333;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.phone-header {
+    background: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.phone-body {
+    background: #f9f9f9;
+    padding: 20px;
+    min-height: 150px;
+}
+
+.notification {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification .icon {
+    font-size: 1.5em;
+}
+
+.sound-indicator {
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sound-indicator.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.sound-indicator.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.problem-explanation {
+    margin-top: 20px;
+}
+
+.problem-explanation h3 {
+    margin-bottom: 15px;
+    color: #c82333;
+}
+
+.problem-explanation ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.problem-explanation li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background: white;
+    border-left: 3px solid #ff4444;
+    border-radius: 5px;
+}
+
+.highlight {
+    background: #fff3cd;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #856404;
+}
+
+/* Step Box */
+.step-box {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    border: 2px solid #e9ecef;
+}
+
+.step-box h3 {
+    color: #FF6B35;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+/* Topic 구조 */
+.topic-structure {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.topic-structure .before,
+.topic-structure .after {
+    flex: 1;
+    min-width: 250px;
+}
+
+.topic-structure h4 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.arrow {
+    font-size: 3em;
+    color: #FF6B35;
+    font-weight: bold;
+}
+
+.topic-item {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.topic-item.old {
+    background: #ffc107;
+    border: 2px solid #ff9800;
+}
+
+.topic-item.new {
+    background: #28a745;
+    color: white;
+    border: 2px solid #218838;
+}
+
+.topic-item.new:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.topic-name {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.topic-desc {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+/* 채널 구조 */
+.channel-structure {
+    display: grid;
+    gap: 15px;
+}
+
+.channel-item {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s;
+}
+
+.channel-item:hover {
+    border-color: #FF6B35;
+    box-shadow: 0 5px 20px rgba(255, 107, 53, 0.2);
+    transform: translateX(5px);
+}
+
+.channel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.channel-id {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.95em;
+}
+
+.sound-badge {
+    background: #FF6B35;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.sound-badge.mute {
+    background: #6c757d;
+}
+
+.channel-desc {
+    color: #666;
+    font-size: 0.9em;
+    padding-left: 5px;
+}
+
+/* DB 테이블 */
+.db-table {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background: #FF6B35;
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s;
+}
+
+tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.sound-cell {
+    font-weight: bold;
+    color: #FF6B35;
+}
+
+.topic-cell {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #28a745;
+}
+
+/* 시뮬레이션 */
+.simulation-controls {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 15px 40px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.simulation-flow {
+    margin-top: 30px;
+}
+
+.flow-step {
+    margin-bottom: 40px;
+    opacity: 0.3;
+    transform: translateX(-20px);
+    transition: all 0.5s;
+}
+
+.flow-step.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.flow-step .step-number {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: #FF6B35;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.step-content {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid #FF6B35;
+}
+
+.step-content h4 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* FCM 메시지 */
+.fcm-messages {
+    display: grid;
+    gap: 10px;
+}
+
+.fcm-message {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s;
+}
+
+.fcm-message.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.msg-header {
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 5px;
+}
+
+.msg-body {
+    font-size: 0.9em;
+    color: #666;
+    font-family: 'Courier New', monospace;
+}
+
+/* 크루 기기 */
+.crew-devices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.device {
+    border: 3px solid #333;
+    border-radius: 20px;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.5s;
+}
+
+.device.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.device-header {
+    background: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.device-body {
+    background: #f9f9f9;
+    padding: 20px;
+}
+
+.device-body > div {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+.received-topic {
+    border-left: 3px solid #007bff;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.used-channel {
+    border-left: 3px solid #6f42c1;
+    color: #6f42c1;
+}
+
+.played-sound {
+    border-left: 3px solid #28a745;
+    font-weight: bold;
+    color: #28a745;
+    font-size: 1.1em;
+}
+
+.played-sound.mute {
+    border-left-color: #6c757d;
+    color: #6c757d;
+}
+
+/* 결과 박스 */
+.result-box {
+    background: #d4edda;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #28a745;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 10px;
+}
+
+.result-item .icon {
+    font-size: 2em;
+}
+
+.result-item span:last-child {
+    font-size: 1.1em;
+}
+
+/* 사용자 플로우 */
+.user-flow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flow-item {
+    text-align: center;
+    min-width: 180px;
+}
+
+.flow-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.flow-text strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #FF6B35;
+    font-size: 1.1em;
+}
+
+.flow-text p {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.5;
+}
+
+.flow-arrow {
+    font-size: 2em;
+    color: #FF6B35;
+    font-weight: bold;
+}
+
+/* 장단점 */
+.comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .comparison {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pros, .cons {
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.pros {
+    background: #d4edda;
+    border: 2px solid #28a745;
+}
+
+.cons {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+}
+
+.pros h3 {
+    color: #155724;
+    margin-bottom: 20px;
+}
+
+.cons h3 {
+    color: #856404;
+    margin-bottom: 20px;
+}
+
+.pros ul, .cons ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pros li, .cons li {
+    padding: 12px;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 8px;
+    padding-left: 35px;
+    position: relative;
+}
+
+.pros li::before {
+    content: "✓";
+    position: absolute;
+    left: 12px;
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.cons li::before {
+    content: "⚠";
+    position: absolute;
+    left: 12px;
+    font-size: 1.2em;
+}
+
+/* 체크리스트 */
+.checklist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.checklist-group {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #dee2e6;
+}
+
+.checklist-group h3 {
+    color: #FF6B35;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.checklist-group label {
+    display: block;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.checklist-group label:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.checklist-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* 푸터 */
+footer {
+    background: #333;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+
+.date {
+    opacity: 0.7;
+    font-size: 0.9em;
+}
+
+/* 애니메이션 */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.flow-step.active .step-number {
+    animation: pulse 1s ease-in-out;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    section h2 {
+        font-size: 1.5em;
+    }
+
+    .phone-example {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .arrow {
+        font-size: 2em;
+        transform: rotate(90deg);
+    }
+
+    .user-flow {
+        flex-direction: column;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+}

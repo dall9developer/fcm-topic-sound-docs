@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCM Topic 사운드별 알림 시스템 기획</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <header>
+            <h1>🚑 FCM Topic 사운드별 알림 시스템</h1>
+            <p class="subtitle">안드로이드 버전별 알림음 차이 문제 해결 방안</p>
+        </header>
+
+        <!-- 문제 상황 -->
+        <section class="problem-section">
+            <h2>❌ 현재 문제 상황</h2>
+            <div class="problem-box">
+                <div class="phone-example">
+                    <div class="phone">
+                        <div class="phone-header">삼성 갤럭시 (Android 13)</div>
+                        <div class="phone-body">
+                            <div class="notification">
+                                <span class="icon">🔔</span>
+                                <span class="text">새로운 호출</span>
+                            </div>
+                            <div class="sound-indicator success">✅ 커스텀 사운드 (사운드 2)</div>
+                        </div>
+                    </div>
+                    <div class="phone">
+                        <div class="phone-header">LG 폰 (Android 11)</div>
+                        <div class="phone-body">
+                            <div class="notification">
+                                <span class="icon">🔔</span>
+                                <span class="text">새로운 호출</span>
+                            </div>
+                            <div class="sound-indicator error">❌ 시스템 기본음</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="problem-explanation">
+                    <h3>왜 이런 문제가 발생하나?</h3>
+                    <ul>
+                        <li><strong>Android 8.0 (Oreo) 이후</strong> 알림 채널(Notification Channel) 필수</li>
+                        <li>현재는 <span class="highlight">1개의 채널</span>만 존재 → 모든 기기가 같은 시스템 기본음 사용</li>
+                        <li>앱이 꺼져있을 때 OS가 알림 처리 → 사용자가 선택한 사운드 무시</li>
+                        <li>Topic 방식으로 전송 → 개인별 다른 사운드 적용 불가</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 해결 방안 -->
+        <section class="solution-section">
+            <h2>✅ 해결 방안: 사운드별 Topic 분리</h2>
+
+            <!-- Step 1: Topic 구조 -->
+            <div class="step-box">
+                <h3>Step 1: Topic 구조 변경</h3>
+                <div class="topic-structure">
+                    <div class="before">
+                        <h4>기존 (문제)</h4>
+                        <div class="topic-item old">
+                            <span class="topic-name">gwangju</span>
+                            <span class="topic-desc">광주 전체 크루</span>
+                        </div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="after">
+                        <h4>변경 (해결)</h4>
+                        <div class="topic-item new" data-sound="0">
+                            <span class="topic-name">gwangju_sound_0</span>
+                            <span class="topic-desc">무음 선택 크루</span>
+                        </div>
+                        <div class="topic-item new" data-sound="1">
+                            <span class="topic-name">gwangju_sound_1</span>
+                            <span class="topic-desc">사운드1 선택 크루</span>
+                        </div>
+                        <div class="topic-item new" data-sound="2">
+                            <span class="topic-name">gwangju_sound_2</span>
+                            <span class="topic-desc">사운드2 선택 크루</span>
+                        </div>
+                        <div class="topic-item new" data-sound="3">
+                            <span class="topic-name">gwangju_sound_3</span>
+                            <span class="topic-desc">사운드3 선택 크루</span>
+                        </div>
+                        <div class="topic-item new" data-sound="4">
+                            <span class="topic-name">gwangju_sound_4</span>
+                            <span class="topic-desc">사운드4 선택 크루</span>
+                        </div>
+                        <div class="topic-item new" data-sound="5">
+                            <span class="topic-name">gwangju_sound_5</span>
+                            <span class="topic-desc">사운드5 선택 크루</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Android 채널 생성 -->
+            <div class="step-box">
+                <h3>Step 2: Android 알림 채널 생성 (MainActivity.kt)</h3>
+                <div class="channel-structure">
+                    <div class="channel-item" data-sound="0">
+                        <div class="channel-header">
+                            <span class="channel-id">high_importance_channel_silent</span>
+                            <span class="sound-badge mute">🔇 무음</span>
+                        </div>
+                        <div class="channel-desc">소리 없음</div>
+                    </div>
+                    <div class="channel-item" data-sound="1">
+                        <div class="channel-header">
+                            <span class="channel-id">high_importance_channel_sound_1</span>
+                            <span class="sound-badge">🔊 사운드1</span>
+                        </div>
+                        <div class="channel-desc">sound_1.mp3 재생 (14초)</div>
+                    </div>
+                    <div class="channel-item" data-sound="2">
+                        <div class="channel-header">
+                            <span class="channel-id">high_importance_channel_sound_2</span>
+                            <span class="sound-badge">🔊 사운드2</span>
+                        </div>
+                        <div class="channel-desc">sound_2.mp3 재생 (12초)</div>
+                    </div>
+                    <div class="channel-item" data-sound="3">
+                        <div class="channel-header">
+                            <span class="channel-id">high_importance_channel_sound_3</span>
+                            <span class="sound-badge">🔊 사운드3</span>
+                        </div>
+                        <div class="channel-desc">sound_3.mp3 재생 (5초)</div>
+                    </div>
+                    <div class="channel-item" data-sound="4">
+                        <div class="channel-header">
+                            <span class="channel-id">high_importance_channel_sound_4</span>
+                            <span class="sound-badge">🔊 사운드4</span>
+                        </div>
+                        <div class="channel-desc">sound_4.mp3 재생 (1초)</div>
+                    </div>
+                    <div class="channel-item" data-sound="5">
+                        <div class="channel-header">
+                            <span class="channel-id">high_importance_channel_sound_5</span>
+                            <span class="sound-badge">🔊 사운드5</span>
+                        </div>
+                        <div class="channel-desc">sound_5.mp3 재생 (2초)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: DB 저장 -->
+            <div class="step-box">
+                <h3>Step 3: 크루 사운드 설정 DB 저장</h3>
+                <div class="db-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>crew_id</th>
+                                <th>fcm_token</th>
+                                <th>notification_sound</th>
+                                <th>구독 Topic</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crewTable">
+                            <tr data-sound="2">
+                                <td>1</td>
+                                <td>abc123...</td>
+                                <td class="sound-cell">2 (사운드2)</td>
+                                <td class="topic-cell">gwangju_sound_2</td>
+                            </tr>
+                            <tr data-sound="0">
+                                <td>2</td>
+                                <td>def456...</td>
+                                <td class="sound-cell">0 (무음)</td>
+                                <td class="topic-cell">gwangju_sound_0</td>
+                            </tr>
+                            <tr data-sound="5">
+                                <td>3</td>
+                                <td>ghi789...</td>
+                                <td class="sound-cell">5 (사운드5)</td>
+                                <td class="topic-cell">gwangju_sound_5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 동작 시뮬레이션 -->
+        <section class="simulation-section">
+            <h2>🎬 동작 시뮬레이션</h2>
+
+            <div class="scenario">
+                <h3>시나리오: 광주 지역에 새로운 호출 발생</h3>
+
+                <div class="simulation-controls">
+                    <button id="startSimulation" class="btn-primary">시뮬레이션 시작</button>
+                    <button id="resetSimulation" class="btn-secondary">초기화</button>
+                </div>
+
+                <div class="simulation-flow">
+                    <!-- 1. 서버 -->
+                    <div class="flow-step" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>📡 서버: FCM 전송 (6개 Topic)</h4>
+                            <div class="fcm-messages">
+                                <div class="fcm-message" data-sound="0">
+                                    <div class="msg-header">→ gwangju_sound_0</div>
+                                    <div class="msg-body">채널: high_importance_channel_silent</div>
+                                </div>
+                                <div class="fcm-message" data-sound="1">
+                                    <div class="msg-header">→ gwangju_sound_1</div>
+                                    <div class="msg-body">채널: high_importance_channel_sound_1</div>
+                                </div>
+                                <div class="fcm-message" data-sound="2">
+                                    <div class="msg-header">→ gwangju_sound_2</div>
+                                    <div class="msg-body">채널: high_importance_channel_sound_2</div>
+                                </div>
+                                <div class="fcm-message" data-sound="3">
+                                    <div class="msg-header">→ gwangju_sound_3</div>
+                                    <div class="msg-body">채널: high_importance_channel_sound_3</div>
+                                </div>
+                                <div class="fcm-message" data-sound="4">
+                                    <div class="msg-header">→ gwangju_sound_4</div>
+                                    <div class="msg-body">채널: high_importance_channel_sound_4</div>
+                                </div>
+                                <div class="fcm-message" data-sound="5">
+                                    <div class="msg-header">→ gwangju_sound_5</div>
+                                    <div class="msg-body">채널: high_importance_channel_sound_5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 크루 기기들 -->
+                    <div class="flow-step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>📱 크루 기기들: 알림 수신</h4>
+                            <div class="crew-devices">
+                                <div class="device" data-crew="1" data-sound="2">
+                                    <div class="device-header">👨‍⚕️ 크루 A (사운드2 선택)</div>
+                                    <div class="device-body">
+                                        <div class="received-topic">수신: gwangju_sound_2</div>
+                                        <div class="used-channel">채널: sound_2</div>
+                                        <div class="played-sound">🔊 sound_2.mp3 재생!</div>
+                                    </div>
+                                </div>
+                                <div class="device" data-crew="2" data-sound="0">
+                                    <div class="device-header">👨‍⚕️ 크루 B (무음 선택)</div>
+                                    <div class="device-body">
+                                        <div class="received-topic">수신: gwangju_sound_0</div>
+                                        <div class="used-channel">채널: silent</div>
+                                        <div class="played-sound mute">🔇 무음</div>
+                                    </div>
+                                </div>
+                                <div class="device" data-crew="3" data-sound="5">
+                                    <div class="device-header">👨‍⚕️ 크루 C (사운드5 선택)</div>
+                                    <div class="device-body">
+                                        <div class="received-topic">수신: gwangju_sound_5</div>
+                                        <div class="used-channel">채널: sound_5</div>
+                                        <div class="played-sound">🔊 sound_5.mp3 재생!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 결과 -->
+                    <div class="flow-step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>✅ 결과: 각 크루가 설정한 사운드 재생!</h4>
+                            <div class="result-box">
+                                <div class="result-item success">
+                                    <span class="icon">✅</span>
+                                    <span>모든 Android 버전에서 동일하게 작동</span>
+                                </div>
+                                <div class="result-item success">
+                                    <span class="icon">✅</span>
+                                    <span>크루마다 원하는 사운드로 알림 수신</span>
+                                </div>
+                                <div class="result-item success">
+                                    <span class="icon">✅</span>
+                                    <span>OS가 알림 채널 기반으로 정확히 재생</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 사용자 설정 변경 흐름 -->
+        <section class="user-flow-section">
+            <h2>🔄 크루가 사운드 설정 변경할 때</h2>
+            <div class="user-flow">
+                <div class="flow-item">
+                    <div class="flow-icon">📱</div>
+                    <div class="flow-text">
+                        <strong>1. 앱에서 사운드 변경</strong>
+                        <p>크루 A: 사운드2 → 사운드3</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">
+                    <div class="flow-icon">💾</div>
+                    <div class="flow-text">
+                        <strong>2. 서버 API 호출</strong>
+                        <p>POST /fcm/token<br>{ notification_sound_index: 3 }</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">
+                    <div class="flow-icon">🔄</div>
+                    <div class="flow-text">
+                        <strong>3. Topic 재구독</strong>
+                        <p>해제: gwangju_sound_2<br>구독: gwangju_sound_3</p>
+                    </div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">
+                    <div class="flow-icon">✅</div>
+                    <div class="flow-text">
+                        <strong>4. 완료</strong>
+                        <p>다음 알림부터 사운드3 재생</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 장단점 -->
+        <section class="pros-cons-section">
+            <h2>⚖️ 장단점 분석</h2>
+            <div class="comparison">
+                <div class="pros">
+                    <h3>✅ 장점</h3>
+                    <ul>
+                        <li>모든 Android 버전에서 일관된 동작</li>
+                        <li>Topic 방식 유지 (효율적인 대량 전송)</li>
+                        <li>크루별 사운드 커스터마이징 가능</li>
+                        <li>Android OS 표준 방식 준수</li>
+                        <li>사용자가 시스템 설정에서도 제어 가능</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3>⚠️ 단점</h3>
+                    <ul>
+                        <li>Topic 개수 증가 (지역 × 6개)</li>
+                        <li>FCM 전송 횟수 6배 증가</li>
+                        <li>DB Topic 테이블 관리 복잡도 증가</li>
+                        <li>사운드 변경 시 Topic 재구독 필요</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 구현 체크리스트 -->
+        <section class="checklist-section">
+            <h2>📋 구현 체크리스트</h2>
+            <div class="checklist">
+                <div class="checklist-group">
+                    <h3>Android (Flutter)</h3>
+                    <label><input type="checkbox"> MainActivity.kt에 채널 6개 생성</label>
+                    <label><input type="checkbox"> res/raw에 사운드 파일 복사</label>
+                    <label><input type="checkbox"> 각 채널에 사운드 파일 매핑</label>
+                </div>
+                <div class="checklist-group">
+                    <h3>Flutter</h3>
+                    <label><input type="checkbox"> Android도 사운드 인덱스 서버 전송</label>
+                    <label><input type="checkbox"> FCMService.updateServerToken 수정</label>
+                </div>
+                <div class="checklist-group">
+                    <h3>서버 (DB)</h3>
+                    <label><input type="checkbox"> d9_crew_fcm.notification_sound 활용</label>
+                    <label><input type="checkbox"> d9_fcm_topics에 사운드별 Topic 추가</label>
+                    <label><input type="checkbox"> 기존 크루 Topic 재구독 마이그레이션</label>
+                </div>
+                <div class="checklist-group">
+                    <h3>서버 (API)</h3>
+                    <label><input type="checkbox"> POST /fcm/token에 사운드 인덱스 저장</label>
+                    <label><input type="checkbox"> Topic 재구독 로직 추가</label>
+                    <label><input type="checkbox"> FCM 전송 시 사운드별 Topic + 채널 매핑</label>
+                </div>
+                <div class="checklist-group">
+                    <h3>테스트</h3>
+                    <label><input type="checkbox"> 각 사운드별 알림 테스트</label>
+                    <label><input type="checkbox"> 다양한 Android 버전 테스트</label>
+                    <label><input type="checkbox"> 사운드 변경 시 재구독 테스트</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <footer>
+            <p>달구 구급차 크루 앱 - FCM Topic 사운드 시스템 개선 기획</p>
+            <p class="date">작성일: 2025-01-22</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
